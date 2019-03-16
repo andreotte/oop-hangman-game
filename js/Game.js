@@ -26,19 +26,6 @@ class Game {
    // $hiddenLetters
    handleInteraction(key) {
      this.activePhrase.checkLetter(key);
-
-  //   this method controls most of the game logic. It checks to see if the
-  //   button clicked by the player matches a letter in the phrase, and then
-  //   directs the game based on a correct or incorrect guess. This method should:
-  //
-  //
-  //     If the phrase does not include the guessed letter, call the removeLife()
-  //     method.
-  //
-  //     If the phrase includes the guessed letter, add the chosen CSS class to
-  //     the selected letter's keyboard button, call the showMatchedLetter()
-  //     method on the phrase, and then call the checkForWin() method. If the
-  //     player has won the game, also call the gameOver() method.
   }
 
   // Remove a life from the scoreboard. If player has five missed guesses, call
@@ -47,31 +34,37 @@ class Game {
     let $lives = $('.tries');
     let $remainingLives = $lives.filter('.tries');
     this.missed += 1;
-    
+
     $remainingLives[0]
       .className = 'lost';
     $remainingLives[0]
       .innerHTML = '<img src="images/lostHeart.png" alt="Heart Icon" height="35" width="30">'
 
     if (this.missed === 5) {
-      this.gameOver();
+      this.gameOver('You lose. Better luck next time!', 'lose');
     }
-
-
   }
 
-  checkForWin() {
+  // Check if player has revealed all letter in the phrase.
+  checkForWin(phrase) {
     // this method checks to see if the player has revealed all
     // of the letters in the active phrase.
+    const letters = phrase.filter('.letter');
+    const matchedLetters = letters.filter('.show');
+    console.log(letters.length);
+    if (matchedLetters.length === letters.length) {
+      this.gameOver('You win!', 'win');
+    }
   }
 
-  gameOver() {
-    // this method displays the original start screen overlay, and depending on
-    // the outcome of the game, updates the overlay h1 element with a friendly
-    // win or loss message, and replaces the overlay’s start CSS class with
-    // either the win or lose CSS class.
-    $('#overlay').show();
-    $('#game-over-message').text('You lose. Better luck next time!');
+  // Display original start screen and write win or loss message to the DOM.
+  // Reset game
+  gameOver(message, outcome) {
+    $('#overlay')
+      .show();
+    $('#overlay').addClass(outcome);
+    $('#game-over-message').text(message);
 
+    
   }
  }

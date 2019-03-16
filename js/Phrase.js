@@ -23,7 +23,6 @@
           phraseLIs.push(phraseLetters[letter]);
         }
       }
-
       phraseUl.html(phraseLIs);
    }
 
@@ -46,10 +45,10 @@
        key.className = 'wrong';
        game.removeLife();
      }
+     game.checkForWin($hiddenLetters);
    }
 
    // Reveal letter(s) on the board that match player's selection.
-
    showMatchedLetter(matchedLetter, key) {
      matchedLetter.className = `show letter ${key.innerText}`;
    }
