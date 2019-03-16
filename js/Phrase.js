@@ -16,10 +16,10 @@
 
       for (let letter in phraseLetters) {
         if (phraseLetters[letter] === ' ') {
-          phraseLetters[letter] = '<li class="space">' + phraseLetters[letter] + '</li>';
+          phraseLetters[letter] = `<li class="space">${phraseLetters[letter]}</li>`;
           phraseLIs.push(phraseLetters[letter]);
         } else {
-          phraseLetters[letter] = '<li class="hide letter ' + [phraseLetters[letter]] + '">' + phraseLetters[letter] + '</li>';
+          phraseLetters[letter] = `<li class="hide letter ${phraseLetters[letter]}">${phraseLetters[letter]}</li>`;
           phraseLIs.push(phraseLetters[letter]);
         }
       }

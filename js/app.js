@@ -2,36 +2,40 @@
  * Project 4 - OOP Game App
  * app.js */
 
+const phrases = ['Andre',
+'Rhythm and blues',
+'Michigan',
+'Mississippi',
+'Adam and Eve'];
 
 
-  const phrases = ['You are playing hangman',
-  'Rhythm and blues',
-  'Have a nice day',
-  'Mississippi',
-  'Mary had a little lamb'];
+// Call game.startGame() on click to initiate a new game.
+$('#btn__reset').on('click', () => {
+  // Create a new instance of the Game class. game is global variable.
+  window.game = new Game(phrases);
+  game.startGame()
+});
 
+// Receives specific key from event listeners and calls handleInteraction()
+function key(target) {
+  if(target.className === 'key') {
+    game.handleInteraction(event.target);
+  }
+}
 
-  // Call game.startGame() on click to initiate a new game.
-  $('#btn__reset').on('click', () => {
-    // Create a new instance of the Game class. game is global variable.
-    window.game = new Game(phrases);
-    game.startGame()
-  });
+ // Add click event listeners to each of the onscreen keyboard buttons, so that
+ // clicking a button calls the handleInteraction() method on the Game object.
+const $keys = $('#qwerty');
 
-   // Add click event listeners to each of the onscreen keyboard buttons, so that
-   // clicking a button calls the handleInteraction() method on the Game object.
-    const $keys = $('#qwerty');
-    $keys.on('click', function(){
-      if(event.target.className === 'key') {
-        game.handleInteraction(event.target);
-      }
-  });
+$keys.on('click', () => key(event.target));
 
-
-//  After a game is completed, the gameboard needs to be reset so that clicking
-//  the "Start Game" button will successfully load a new game.
-// Remove all li elements from the Phrase ul element.
-// Enable all of the onscreen keyboard buttons and update each to use the key CSS
-// class, and not use the chosen or wrong CSS classes.
-// Reset all of the heart images (i.e. the player's lives) in the scoreboard at
-// the bottom of the gameboard to display the liveHeart.png image.
+// TODO: add keydown event listener
+// window.onkeydown = (event) => {
+//   const $keys = $('.key');
+//   for (let letter = 0; letter < $keys.length; letter ++) {
+//     if ($keys[letter].innerHTML === event.key) {
+//       console.log($keys[letter]);
+//       key($keys[letter]);
+//     }
+//   }
+// };

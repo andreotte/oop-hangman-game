@@ -42,6 +42,7 @@ class Game {
 
     if (this.missed === 5) {
       this.gameOver('You lose. Better luck next time!', 'lose');
+      this.missed = 0;
     }
   }
 
@@ -51,7 +52,6 @@ class Game {
     // of the letters in the active phrase.
     const letters = phrase.filter('.letter');
     const matchedLetters = letters.filter('.show');
-    console.log(letters.length);
     if (matchedLetters.length === letters.length) {
       this.gameOver('You win!', 'win');
     }
@@ -60,11 +60,27 @@ class Game {
   // Display original start screen and write win or loss message to the DOM.
   // Reset game
   gameOver(message, outcome) {
-    $('#overlay')
-      .show();
-    $('#overlay').addClass(outcome);
+    const $overlay = $('#overlay');
+    $overlay.attr('class', `start ${outcome}`);
+    $overlay.show();
+    console.log(overlay);
+
     $('#game-over-message').text(message);
 
-    
+    // remove phrase
+    const phraseUl = $('#phrase ul');
+    phraseUl.children().remove();
+    // enable all keys
+    const $keyButtons = $('button');
+    for (let button = 0; button < $keyButtons.length; button ++) {
+      $keyButtons[button].disabled = false;
+      $keyButtons[button].className = 'key';
+    }
+    // Add lives back
+    const $lives = $('.lost');
+    for (let life = 0; life < $lives.length; life ++) {
+      $lives[life].className = 'tries';
+      $lives[life].innerHTML = '<img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30">';
+    }
   }
  }
